@@ -2,7 +2,7 @@ package digidinos.entity;
 
 public class Accessory {
     public int ID;
-    String name;
+    public String name;
 
     public Accessory(int ID, String name ){
         this.ID = ID;
@@ -14,6 +14,9 @@ public class Accessory {
     }
 
     public static void setID(Accessory a, int ID) {
-        a.ID = ID;
+        BaseRow.setIDBase(a, ID);
+    }
+    public static Integer getID(Accessory a) {
+        return BaseRow.getIDBase(a);
     }
 }

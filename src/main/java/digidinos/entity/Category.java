@@ -14,6 +14,10 @@ public class Category {
     }
 
     public static void setID(Category c, int ID) {
-        c.ID = ID;
+        BaseRow.setIDBase(c, ID);
+    }
+
+    public static Integer getID(Category c) {
+        return BaseRow.getIDBase(c);
     }
 }
