@@ -4,24 +4,40 @@ import java.util.ArrayList;
 
 import digidinos.entity.Product;
 
-public class ProductDAO implements IDAO {
-    @Override
-    public boolean insert(Object obj) {
-        return Database.insertTable("Product", obj)==1;
+public class ProductDAO {
+    Database database;
+    // @Override
+    // insert new obj to table 
+    // @param Product $product
+    // @return boolean
+    public boolean insert(Product product) {
+        return database.insertTable("Product", product)==1;
     }
-    @Override
-    public Integer update(Object obj) {
-        return Database.updateTable("Product", obj);
+    // @Override
+    // update new obj to existed obj in table 
+    // @param Product $product
+    // @return int
+    public Integer update(Product product) {
+        return database.updateTable("Product", product);
     }
-    @Override
-    public boolean delete(Object obj) {
-        return Database.deleteTable("Product",((Product)obj).getID());
+    // @Override
+    // delete obj with same id in table 
+    // @param Product $product
+    // @return boolean
+    public boolean delete(Product product) {
+        return database.deleteTable("Product",((Product)product).getID());
     }
-    @Override
+    // @Override
+    // create a new table with same class
+    // @param Product $product
+    // @return arraylist
     public ArrayList<Object> findAll() {
-        return Database.selectTable("Product");
+        return database.selectTable("Product");
     }
-    @Override
+    // @Override
+    // insert new obj to table 
+    // @param Product $product
+    // @return boolean
     public Product findById(int id) {
         for (Object obj : findAll()) {
             if (((Product)obj).getID() == id) {
@@ -30,7 +46,10 @@ public class ProductDAO implements IDAO {
         }
         return null;
     }
-    @Override
+    // @Override
+    // insert new obj to table 
+    // @param String $name
+    // @return Product $product
     public Product findByName(String name) {
         for (Object obj : findAll()) {
             if (((Product)obj).getName().equals(name)) {

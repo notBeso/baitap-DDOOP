@@ -4,24 +4,40 @@ import java.util.ArrayList;
 
 import digidinos.entity.Category;
 
-public class CategoryDAO implements IDAO{
-    @Override
-    public boolean insert(Object obj) {
-        return Database.insertTable("Category", obj)==1;
+public class CategoryDAO {
+    Database database;
+    // @Override
+    // insert new obj to table 
+    // @param Category $category
+    // @return boolean
+    public boolean insert(Category category) {
+        return database.insertTable("Category", category)==1;
     }
-    @Override
-    public Integer update(Object obj) {
-        return Database.updateTable("Category", obj);
+    // @Override
+    // update new obj to existed obj in table 
+    // @param Category $category
+    // @return int
+    public Integer update(Category category) {
+        return database.updateTable("Category", category);
     }
-    @Override
-    public boolean delete(Object obj) {
-        return Database.deleteTable("Category",((Category)obj).getID());
+    // @Override
+    // delete obj with same id in table 
+    // @param Category $category
+    // @return boolean
+    public boolean delete(Category category) {
+        return database.deleteTable("Category",((Category)category).getID());
     }
-    @Override
+    // @Override
+    // create a new table with same class
+    // @param Category $category
+    // @return arraylist
     public ArrayList<Object> findAll() {
-        return Database.selectTable("Category");
+        return database.selectTable("Category");
     }
-    @Override
+    // @Override
+    // insert new obj to table 
+    // @param Category $category
+    // @return boolean
     public Category findById(int id) {
         for (Object obj : findAll()) {
             if (((Category)obj).getID() == id) {
@@ -30,7 +46,10 @@ public class CategoryDAO implements IDAO{
         }
         return null;
     }
-    @Override
+    // @Override
+    // insert new obj to table 
+    // @param String $name
+    // @return Category $category
     public Category findByName(String name) {
         for (Object obj : findAll()) {
             if (((Category)obj).getName().equals(name)) {
