@@ -1,11 +1,11 @@
 package digidinos.entity;
 
-public class Accessory extends BaseRow {
-    public Accessory(int id, String name) {
-        super(id, name);
+public class Accessory extends BaseRow implements IEntity {
+    public Accessory(int ID, String name) {
+        super(ID, name);
     }   
-    @Override
-    public String getType() {
-        return "Category";
+    public void run(){
+        System.out.println( ID + name );
+        System.out.println("Accessory");
     }
 }

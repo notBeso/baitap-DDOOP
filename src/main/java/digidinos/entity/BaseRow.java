@@ -3,8 +3,8 @@ package digidinos.entity;
 abstract class BaseRow {
     protected int ID;
     protected String name;
-    public BaseRow(int id, String name) {
-        this.ID = id;
+    public BaseRow(int ID, String name) {
+        this.ID = ID;
         this.name = name;
     }
     
@@ -23,5 +23,5 @@ abstract class BaseRow {
     public void setName(String name) {
         this.name = name;
     }
-    public abstract String getType();
+    
 }
