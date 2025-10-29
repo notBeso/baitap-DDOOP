@@ -1,27 +1,30 @@
 package digidinos.entity;
-public class Product {
+public class Product implements IEntity {
     
-    public int ID;
-    public String name;
-    int categoryID;
+    protected int ID;
+    private String name;
+    private int categoryID;
 
-    public Product(int ID, String name, int categoryId ){
+    public Product(int ID, String name, int categoryID ){
         this.name = name;
         this.ID = ID;
-        this.categoryID = categoryId;
+        this.categoryID = categoryID;
     }
-
-    public static void print(Product p) {
-        
-        System.out.println("ID: " +p.ID + "   NAME: " + p.name + "   CATEGORY ID: " + p.categoryID );
+    @Override
+    public void print(){
+        System.out.println("ID: " +ID + "   NAME: " + name + "   categoryID" + categoryID);
     }
-
-    public static void setID(Product p, int ID) {
-        BaseRow.setIDBase(p, ID);
+    @Override
+    public void setID(int id) {
+       ID = id;
     }
-    public static Integer getID(Product p) {
-        return BaseRow.getIDBase(p);
+    @Override
+    public Integer getID() {
+        return ID;
     }
-
+    @Override
+    public String getName() {
+        return name;
+    }
 }
 

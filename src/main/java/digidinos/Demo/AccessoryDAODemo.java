@@ -1,45 +1,56 @@
 package digidinos.Demo;
 
-import digidinos.DAO.AccesoryDAO;
 import digidinos.DAO.Database;
 import digidinos.entity.Accessory;
 
 public class AccessoryDAODemo {
-    private static DatabaseDemo db;
-
-    public static void insertTest(Database db, Accessory p){
-        if (AccesoryDAO.insert(db,p)==1) {
-            System.out.println("Insert Successful");
+    public static void insertTest(Accessory accessory){
+        // test Database insetTable method
+        if (Database.insertTable("Accessory",accessory)==1) {
+            System.out.println("Insert Accessory Successful");
         } else {
-            System.out.println("Insert Failed");
+            System.out.println("Insert Accessory Failed");
         }
     }
-    // public static void selectTest(Database db){
-    //     if(Database.selectTable(db,"Accessory").isEmpty()){
-    //         System.out.println("No Data Found");
-    //     } else {
-    //         System.out.println("Data Found");
-    //     }
-    // }
-    public static void updateTest(Database db, String name, Accessory a){
-        if (AccesoryDAO.update(db, name, a)==1) {
-            System.out.println("Update Successful");
+    public static void selectTest(){
+        // test Database selectTable method
+        if(Database.selectTable("Accessory").isEmpty()){
+            System.out.println("No Accessory Data Found");
         } else {
-            System.out.println("Update Failed");
+            System.out.println("Accessory Data Found");
         }
     }
-    public static void deleteTest(Database db, Accessory a){
-        if (AccesoryDAO.delete(db, a)==true) {
-            System.out.println("Delete Successful");
+    public static void updateTest(Accessory accessory){
+        // test Database updateTable method
+        if (Database.updateTable("Accessory", accessory)==1) {
+            System.out.println("Update Accessory Successful");
         } else {
-            System.out.println("Delete Failed");
+            System.out.println("Update Accessory Failed");
         }
     }
-    // public static void truncateTest(Database db){
-    //     if (db.productTable.isEmpty()) {
-    //         System.out.println("Truncate Successful");
-    //     } else {
-    //         System.out.println("Truncate Failed");
-    //     }
-    // }
+    public static void updateTableByIdTest(int ID,Accessory accessory){
+        // test Database updateTableById method
+        if (Database.updateTableById(ID, accessory)==1) {
+            System.out.println("Update Accessory Table Successful");
+        } else {
+            System.out.println("Update Accessory Table Failed");
+        }
+    }
+    public static void deleteTest(Accessory accessory){
+        // test Database deleteTable method
+        if (Database.deleteTable("Accessory", accessory)==true) {
+            System.out.println("Delete Accessory Successful");
+        } else {
+            System.out.println("Delete Accessory Failed");
+        }
+    }
+    public static void truncateTest(){
+        // test Database truncateTable method
+        Database.truncateTable("Accessory");
+        if(Database.selectTable("Accessory").isEmpty()){
+            System.out.println("Truncate Accessory Successful");
+        } else {
+            System.out.println("Truncate Accessory Failed");
+        }
+    }
 }

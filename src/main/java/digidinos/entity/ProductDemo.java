@@ -1,30 +1,43 @@
 package digidinos.entity;
 
-public class ProductDemo {
-    int ID;
-    String name;
-    int categoryID;
+import java.util.ArrayList;
 
-    public ProductDemo(int ID, String name, int categoryId ){
-        this.ID = ID;
-        this.name = name;
-        this.categoryID = categoryId;
+import digidinos.DAO.Database;
+import digidinos.DAO.IDAO;
+
+public class ProductDemo implements IDAO {
+    @Override
+    public boolean insert(Object obj) {
+        return Database.insertTable("Product", obj)==1;
     }
-
-    public static void createProductTest(int ID, String name, int categoryId) {
-        ProductDemo pd = new ProductDemo(ID, name, categoryId);
+    @Override
+    public Integer update(Object obj) {
+        return Database.updateTable("Product", obj);
     }
-
-    public static void printPoduct(ProductDemo p) {
-        System.out.print("ID: " +p.ID + "   NAME: " + p.name + "   CATEGORY ID: " + p.categoryID );
+    @Override
+    public boolean delete(Object obj) {
+        return Database.deleteTable("Product",((Product)obj).getID());
     }
-
-    public static void setID(ProductDemo p, int ID) {
-        p.ID = ID;
+    @Override
+    public ArrayList<Object> findAll() {
+        return Database.selectTable("Product");
     }
-
-    
-    public static void remove(ProductDemo p) {
-        p = null;
+    @Override
+    public Product findById(int id) {
+        for (Object obj : findAll()) {
+            if (((Product)obj).getID() == id) {
+                return (Product)obj;
+            }
+        }
+        return null;
+    }
+    @Override
+    public Product findByName(String name) {
+        for (Object obj : findAll()) {
+            if (((Product)obj).getName().equals(name)) {
+                return (Product)obj;
+            }
+        }
+        return null; 
     }
 }

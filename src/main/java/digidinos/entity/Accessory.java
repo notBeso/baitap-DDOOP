@@ -1,22 +1,27 @@
 package digidinos.entity;
 
-public class Accessory {
-    public int ID;
-    public String name;
+public class Accessory implements IEntity {
+    private  int ID;
+    private String name;
 
     public Accessory(int ID, String name ){
         this.ID = ID;
         this.name = name;
     }
-
-    public static void print(Accessory a){
-        System.out.println("ID: " +a.ID + "   NAME: " + a.name);
+    @Override
+    public void print(){
+        System.out.println("ID: " +ID + "   NAME: " + name);
     }
-
-    public static void setID(Accessory a, int ID) {
-        BaseRow.setIDBase(a, ID);
+    @Override
+    public void setID(int id) {
+       ID = id;
     }
-    public static Integer getID(Accessory a) {
-        return BaseRow.getIDBase(a);
+    @Override
+    public Integer getID() {
+        return ID;
+    }
+    @Override
+    public String getName() {
+        return name;
     }
 }

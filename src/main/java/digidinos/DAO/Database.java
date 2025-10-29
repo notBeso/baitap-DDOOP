@@ -2,6 +2,7 @@
 package digidinos.DAO;
 
 import java.io.File;
+import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -11,118 +12,116 @@ import javax.xml.crypto.Data;
 import digidinos.entity.Accessory;
 import digidinos.entity.Category;
 import digidinos.entity.Product;
-
-public class Database {
-
-    public ArrayList<Product> productTable;
-    public ArrayList<Category> categoryTable;
-    public ArrayList<Accessory> accessoryTable;
-    
-
+public class Database{
+    private static ArrayList<Product> productTable;
+    private static ArrayList<Category> categoryTable;
+    private static ArrayList<Accessory> accessoryTable;
+    private static Database database; 
     public Database() {
-        this.productTable = new ArrayList<Product>();
-        this.categoryTable = new ArrayList<Category>();
-        this.accessoryTable =  new ArrayList<Accessory>();
+        productTable = new ArrayList<Product>();
+        categoryTable = new ArrayList<Category>();
+        accessoryTable =  new ArrayList<Accessory>();
+        database = new Database();
     }
-
-    public static Integer insertTable(Database db, Object o) {
-        // System.out.println(Database.checkEntity(o));
-        // if(Database.checkEntity(o)==false){
-        //     return null;
-        // }
+    public static Integer insertTable(String name, Object obj) {
+        /*
+         * add new object into the array with same input name
+         */
         int result = 0;
-        if (o instanceof Product) {
-            db.productTable.add((Product)o);
+        if (obj instanceof Product && name.equals(Product.class.getSimpleName())) {
+            database.productTable.add((Product)obj);
             result = 1;
         } 
-        else if (o instanceof Category) {
-            db.categoryTable.add((Category)o);
+        else if (obj instanceof Category && name.equals(Category.class.getSimpleName())) {
+            database.categoryTable.add((Category)obj);
             result = 1;
         } 
-        else if (o instanceof Accessory) {
-            db.accessoryTable.add((Accessory)o);
+        else if (obj instanceof Accessory && name.equals(Accessory.class.getSimpleName())) {
+            database.accessoryTable.add((Accessory)obj);
             result = 1;
         }
         return result;
     }
-
-    public static ArrayList<Object> selectTable(Database db, String name) {
+    public static ArrayList<Object> selectTable(String name) {
+        /*
+         * return array with same name
+         */
         ArrayList<Object> result = new ArrayList<Object>(); 
         if(name.equals(Product.class.getSimpleName())){
-            result.addAll(db.productTable);
+            result.addAll(database.productTable);
         }
         else if(name.equals(Category.class.getSimpleName())){
-            result.addAll(db.categoryTable);
+            result.addAll(database.categoryTable);
         }
         else if(name.equals(Accessory.class.getSimpleName())){
-            result.addAll(db.accessoryTable);
+            result.addAll(database.accessoryTable);
         }
         return result;
     }
-
-    public static Integer updateTable(Database db, String name, Object o) {
-        // if(Database.checkEntity(o)==false){
-        //     return null;
-        // }
+    public static Integer updateTable(String name, Object obj) {
+        /**
+         * get array base on input name
+         * find object with same id
+         * replace with new object
+         */
         int result = 0;
         if(name.equals(Product.class.getSimpleName()) ){
-            for (Product p : db.productTable) {
-                if (p.ID == ((Product)o).ID) {
-                    db.productTable.set(db.productTable.indexOf(p),(Product)o);
+            for (Product product : database.productTable) {
+                if (product.getID() == ((Product)obj).getID()) {
+                    database.productTable.set(database.productTable.indexOf(product),(Product)obj);
                     result = 1;
                     break;
                 }
             }           
         }
         else if(name.equals(Category.class.getSimpleName())){
-            for (Category c : db.categoryTable) {
-                if (c.ID == ((Category)o).ID) {
-                    db.categoryTable.set(db.categoryTable.indexOf(c),(Category)o);
+            for (Category category : database.categoryTable) {
+                if (category.getID() == ((Category)o).getID()) {
+                    database.categoryTable.set(database.categoryTable.indexOf(category),(Category)obj);
                     result = 1;
                     break;
                 }
             }           
         }
         else if(name.equals(Accessory.class.getSimpleName())){
-            for (Accessory a : db.accessoryTable) {
-                if (a.ID == ((Accessory)o).ID) {
-                    db.accessoryTable.set(db.accessoryTable.indexOf(a),(Accessory)o);
+            for (Accessory accessory : database.accessoryTable) {
+                if (accessory.getID() == ((Accessory)o).getID()) {
+                    database.accessoryTable.set(database.accessoryTable.indexOf(accessory),(Accessory)obj);
                     result = 1;
                     break;
                 }
             }           
         }
-
         return result;
     }
-
-    public static Integer updateTableById(Database db, int id, Object o) {
-        // if(Database.checkEntity(o)==false){
-        //     return null;
-        // }
+    public static Integer updateTableById(int id, Object obj) {
+        /*
+         * check for object with the same id as input id
+         * replace that object with input object
+         */
         int result = 0;
-        if (o instanceof Product) {
-            for (Product p : db.productTable) {
-                if (p.ID == id) {
-                    db.productTable.set(db.productTable.indexOf(p),(Product)o);  
+        if (obj instanceof Product) {
+            for (Product product : database.productTable) {
+                if (product.getID() == id) {
+                    database.productTable.set(database.productTable.indexOf(product),(Product)obj);  
                     result = 1;           
                     break;
                 }
             }
         } 
-        else if (o instanceof Category) {
-            for (Category c : db.categoryTable) {
-                if (c.ID == id) {
-                    db.categoryTable.set(db.categoryTable.indexOf(c),(Category)o); 
+        else if (obj instanceof Category) {
+            for (Category category : database.categoryTable) {
+                if (category.getID() == id) {
+                    database.categoryTable.set(database.categoryTable.indexOf(category),(Category)obj); 
                     result = 1;            
                     break;
                 }
             }
         } 
-        else if (o instanceof Accessory) {
-            for (Accessory a : db.accessoryTable) {
-                if (a.ID == id) {
-                    db.accessoryTable.set(db.accessoryTable.indexOf(a),(Accessory)o);
+        else if (obj instanceof Accessory) {
+            for (Accessory accessory : database.accessoryTable) {
+                if (accessory.getID() == id) {
+                    database.accessoryTable.set(database.accessoryTable.indexOf(accessory),(Accessory)obj);
                     result = 1;
                     break;
                 }
@@ -130,101 +129,57 @@ public class Database {
         }
         return result;
     }
-
-    public static Boolean deleteTable(Database db, int id) {
+    public static Boolean deleteTable(String name, Object obj) {
+        /*
+         * get array with same input name
+         * check for ID of input object in the array
+         * remove that object
+         */
         boolean result = false;
-        for (Product p : db.productTable) {
-            if (p.ID == id) {
-                db.productTable.remove(p);
+        for (Product product : database.productTable) {
+            if (product.getID() == ((Product)obj).getID()) {
+                database.productTable.remove(product);
                 result = true;
             }
         }
-        for (Category c : db.categoryTable) {
-            if (c.ID == id) {
-                db.categoryTable.remove(c);
+        for (Category category : database.categoryTable) {
+            if (category.getID() == ((Category)obj).getID()) {
+                database.categoryTable.remove(category);
                 result = true;
             }
         }
-        for (Accessory a : db.accessoryTable) {
-            if (a.ID == id) {
-                db.accessoryTable.remove(a);
+        for (Accessory accessory : database.accessoryTable) {
+            if (accessory.getID() == ((Accessory)obj).getID()) {
+                database.accessoryTable.remove(accessory);
                 result = true;
             }
         }
         return result;
     }
-
-    public static void truncateTable(Database db, String name) {
+    public static void truncateTable(String name) {
+        /*
+         * clear the array with same input name
+         */
         if(name.equals(Product.class.getSimpleName())){
-            db.productTable.clear();
+            database.productTable.clear();
         }
         else if(name.equals(Category.class.getSimpleName())){
-            db.categoryTable.clear();
+            database.categoryTable.clear();
         }
         else if(name.equals(Accessory.class.getSimpleName())){
-            db.accessoryTable.clear();
+            database.accessoryTable.clear();
         }
     }
-
-    public static void printTable(Database db, String name) {
-        if(name.equals(Product.class.getSimpleName())){
-            System.out.println("-----PRODUCT-----");
-            for (Product p : db.productTable) {
-                Product.print(p);
-            }
-        }
-        else if(name.equals(Category.class.getSimpleName())){
-            System.out.println("-----CATEGORY-----");
-            for (Category c : db.categoryTable) {
-                
-                Category.print(c);
-            }
-        }
-        else if(name.equals(Accessory.class.getSimpleName())){
-            System.out.println("-----ACCESSORY-----");
-            for (Accessory a : db.accessoryTable) {
-                Accessory.print(a);
-            }
-        }
-        
+    public Boolean checkFromEntityFolder(Object obj) {
+        /*
+         * check if the input object is a valid object from entity folder
+         */
+        Class<?> objClass = obj.getClass();
+        Package objPackage = objClass.getPackage();
+        String packageName = objPackage.getName();
+        //TESTING
+        //System.out.println( objClass.getName() + "   Package Name: " + packageName);
+        return packageName.equals("digidinos.entity");
     }
-
-//check if object is valid entity from entity folder
-//     public static Boolean checkEntity(Object o) {
-        
-//         URL location = o.getClass().getProtectionDomain().getCodeSource().getLocation();
-//         if (location == null) {
-//             return false;
-//         }
-//         String path = location.getPath();
-//         if (path.startsWith("file:")) {
-
-//             path = path.substring(5);
-
-//         } else if (path.startsWith("jar:file:")) {
-//             int exclamationIndex = path.indexOf("!");
-//             if (exclamationIndex != -1) {
-//                 path = path.substring(9, exclamationIndex);
-//             } else {
-//                 return false;
-//             }
-//         }
-
-//         File parentDir = new File(path).getParentFile(); // src\main\java\digidinos\entity
-        
-// // Cannot determine parent directory
-//         if (parentDir == null) {
-//             return false;
-//         }
-
-//         File targetFolder = new File(parentDir.getPath());
-//         try {
-//             return parentDir.getCanonicalPath().startsWith(targetFolder.getCanonicalPath());
-//         } catch (java.io.IOException e) {
-//             e.printStackTrace();
-//             return false;
-//         }
-        
-//     }
 
 }

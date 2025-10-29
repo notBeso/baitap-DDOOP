@@ -4,41 +4,39 @@ import java.util.ArrayList;
 
 import digidinos.entity.Category;
 
-public class CategoryDAO {
-    private Category category;
-    
-    public static Integer insert(Database db, Category c) {
-        int result = 0;
-        if (db.insertTable(db, c) == 1) {
-            result = 1;
-        }
-        return result;
+public class CategoryDAO implements IDAO{
+    @Override
+    public boolean insert(Object obj) {
+        return Database.insertTable("Category", obj)==1;
     }
-
-    public static Integer update(Database db, String name,Category c) {
-        int result = 0;
-        if (db.updateTable(db, name, c) == 1) {
-            result = 1;
-        }
-        return result;
+    @Override
+    public Integer update(Object obj) {
+        return Database.updateTable("Category", obj);
     }
-
-    public static boolean delete(Database db, Category c) {
-        return db.deleteTable(db, c.ID);
+    @Override
+    public boolean delete(Object obj) {
+        return Database.deleteTable("Category",((Category)obj).getID());
     }
-
-    public static ArrayList<Category> findAll(Database db) {
-        ArrayList<Category> result = db.categoryTable;
-        return result;
+    @Override
+    public ArrayList<Object> findAll() {
+        return Database.selectTable("Category");
     }
-
-    public static Category findById(Database db, int id) {
-        for (Category c : db.categoryTable) {
-            if (c.ID == id) {
-                return c;
+    @Override
+    public Category findById(int id) {
+        for (Object obj : findAll()) {
+            if (((Category)obj).getID() == id) {
+                return (Category)obj;
             }
         }
         return null;
     }
-
+    @Override
+    public Category findByName(String name) {
+        for (Object obj : findAll()) {
+            if (((Category)obj).getName().equals(name)) {
+                return (Category)obj;
+            }
+        }
+        return null; 
+    }
 }

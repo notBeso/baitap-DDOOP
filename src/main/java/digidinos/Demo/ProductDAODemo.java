@@ -1,45 +1,56 @@
 package digidinos.Demo;
 
 import digidinos.DAO.Database;
-import digidinos.DAO.ProductDAO;
 import digidinos.entity.Product;
 
 public class ProductDAODemo {
-    private static DatabaseDemo db;
-
-    public static void insertTest(Database db, Product p){
-        if (ProductDAO.insert(db,p)==1) {
-            System.out.println("Insert Successful");
+    public static void insertTest(Product product){
+        // test Database insetTable method
+        if (Database.insertTable("Product",product)==1) {
+            System.out.println("Insert Product Successful");
         } else {
-            System.out.println("Insert Failed");
+            System.out.println("Insert Product Failed");
         }
     }
-    // public static void selectTest(Database db){
-    //     if(ProductDAO.select(db,"Product").isEmpty()){
-    //         System.out.println("No Data Found");
-    //     } else {
-    //         System.out.println("Data Found");
-    //     }
-    // }
-    public static void updateTest(Database db, String name, Product p){
-        if (ProductDAO.update(db, name, p)==1) {
-            System.out.println("Update Successful");
+    public static void selectTest(){
+        // test Database selectTable method
+        if(Database.selectTable("Product").isEmpty()){
+            System.out.println("No Product Data Found");
         } else {
-            System.out.println("Update Failed");
+            System.out.println("Product Data Found");
         }
     }
-    public static void deleteTest(Database db, Product p){
-        if (ProductDAO.delete(db, p)==true) {
-            System.out.println("Delete Successful");
+    public static void updateTest(Product product){
+        // test Database updateTable method
+        if (Database.updateTable("Product", product)==1) {
+            System.out.println("Update Product Successful");
         } else {
-            System.out.println("Delete Failed");
+            System.out.println("Update Product Failed");
         }
     }
-    public static void truncateTest(Database db){
-        if (db.productTable.isEmpty()) {
-            System.out.println("Truncate Successful");
+    public static void updateTableByIdTest(int ID,Product product){
+        // test Database updateTableById method
+        if (Database.updateTableById(ID, product)==1) {
+            System.out.println("Update Product Table Successful");
         } else {
-            System.out.println("Truncate Failed");
+            System.out.println("Update Product Table Failed");
+        }
+    }
+    public static void deleteTest(Product product){
+        // test Database deleteTable method
+        if (Database.deleteTable("Product", product)==true) {
+            System.out.println("Delete Product Successful");
+        } else {
+            System.out.println("Delete Product Failed");
+        }
+    }
+    public static void truncateTest(){
+        // test Database truncateTable method
+        Database.truncateTable("Product");
+        if(Database.selectTable("Product").isEmpty()){
+            System.out.println("Truncate Product Successful");
+        } else {
+            System.out.println("Truncate Product Failed");
         }
     }
 }
