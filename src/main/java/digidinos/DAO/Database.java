@@ -5,63 +5,80 @@ import java.io.File;
 import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Locale;
 
-import javax.xml.crypto.Data;
 
 import digidinos.entity.Accessory;
 import digidinos.entity.Category;
 import digidinos.entity.Product;
 public class Database{
+
     private ArrayList<Product> productTable;
     private ArrayList<Category> categoryTable;
     private ArrayList<Accessory> accessoryTable;
-    private static Database database; 
-    public Database() {
-        productTable = new ArrayList<Product>();
-        categoryTable = new ArrayList<Category>();
-        accessoryTable =  new ArrayList<Accessory>();
-        database = new Database();
+    private static Database database = null; 
+
+    private Database() {
+        this.productTable = new ArrayList<Product>();
+        this.categoryTable = new ArrayList<Category>();
+        this.accessoryTable =  new ArrayList<Accessory>();
     }
-    // @Override
-    // insert new obj to table 
-    // @param String $name, Object $object
-    // @return Integer
+
+    public static synchronized Database getInstance(){
+        if (database == null){
+            database = new Database();
+        }
+        return database;
+    }
+
+    /**
+     * insert new obj to table 
+     * @param String $name
+     * @param Object $object
+     * @return Integer
+     */
     public Integer insertTable(String name, Object obj) {
         int result = 0;
         if (obj instanceof Product && name.equals(Product.class.getSimpleName())) {
-            database.productTable.add((Product)obj);
+            productTable.add((Product)obj);
             return 1;
         } 
         if (obj instanceof Category && name.equals(Category.class.getSimpleName())) {
-            database.categoryTable.add((Category)obj);
+            categoryTable.add((Category)obj);
             return 1;
         } 
         if (obj instanceof Accessory && name.equals(Accessory.class.getSimpleName())) {
-            database.accessoryTable.add((Accessory)obj);
+            accessoryTable.add((Accessory)obj);
             return 1;
         }
         return result;
     }
-    // return array with same name
-    // @param String $name, Object $object
-    // @return Integer
+
+    /**
+     * return array with same name
+     * @param String $name
+     * @param Object $object
+     * @return Integer
+     */
     public ArrayList<Object> selectTable(String name) {
         ArrayList<Object> result = new ArrayList<Object>(); 
         if(name.equals(Product.class.getSimpleName())){
-            result.addAll(database.productTable);
+            result.addAll(productTable);
         }
         if(name.equals(Category.class.getSimpleName())){
-            result.addAll(database.categoryTable);
+            result.addAll(categoryTable);
         }
         if(name.equals(Accessory.class.getSimpleName())){
-            result.addAll(database.accessoryTable);
+            result.addAll(accessoryTable);
         }
         return result;
     }
-    // update new obj to existed obj in table 
-    // @param String $name, Object $obj
-    // @return int
+
+    /**
+     * update new obj to existed obj in table
+     * @param String $name
+     * @param Object $obj 
+     * @return int
+     */
     public Integer updateTable(String name, Object obj) {
         int result = 0;
         if(name.equals(Product.class.getSimpleName()) ){
@@ -93,9 +110,13 @@ public class Database{
         }
         return result;
     }
-    // update new obj to existed obj with same ID in table
-    // @param int $id, Object $obj
-    // @return Integer
+
+    /**
+     * update new obj to existed obj with same ID in table
+     * @param int $id
+     * @param Object $obj 
+     * @return Integer
+     */
     public Integer updateTableById(int id, Object obj) {
         int result = 0;
         if (obj instanceof Product) {
@@ -127,9 +148,13 @@ public class Database{
         }
         return result;
     }
-    // delete obj with same id in table 
-    // @param String $name, Object $obj
-    // @return boolean
+
+    /**
+     * delete obj with same id in table
+     * @param String $name
+     * @param Object $obj 
+     * @return boolean
+     */
     public Boolean deleteTable(String name, Object obj) {
         boolean result = false;
         if(name.equals(Product.class.getSimpleName()) ){
@@ -158,9 +183,12 @@ public class Database{
         }
         return result;
     }
-    //clear the array with same input name
-    // @param String $name
-    // @return void
+
+    /**
+     * clear the array with same input name
+     * @param String $name 
+     * @return void
+     */
     public void truncateTable(String name) {
         if(name.equals(Product.class.getSimpleName())){
             database.productTable.clear();
@@ -172,9 +200,12 @@ public class Database{
             database.accessoryTable.clear();
         }
     }
-    // check if the input object is a valid object from entity folder
-    // @param Object $obj
-    // @return boolean
+
+    /**
+     * check if the input object is a valid object from entity folder
+     * @param Object $obj 
+     * @return boolean
+     */
     public Boolean checkFromEntityFolder(Object obj) {
         Class<?> objClass = obj.getClass();
         Package objPackage = objClass.getPackage();

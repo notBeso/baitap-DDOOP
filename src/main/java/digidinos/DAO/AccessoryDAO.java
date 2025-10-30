@@ -2,42 +2,48 @@ package digidinos.DAO;
 
 import digidinos.entity.Accessory;
 
-public class AccessoryDAO extends BaseDAO{
+public class AccessoryDAO extends BaseDAO implements IDAO{
     public AccessoryDAO(Database db) {
         super(db);
-    } 
-    // // @Override
-    // // insert new obj to table 
-    // // @param Accessory $accessory
-    // // @return boolean
-    // public boolean insert(Accessory accessory) {
-    //     return db.insertTable("Accessory", accessory)==1;
-    // }
-    // // @Override
-    // // update new obj to existed obj in table 
-    // // @param Accessory $accessory
-    // // @return int
-    // public Integer update(Accessory accessory) {
-    //     return db.updateTable("Accessory", accessory);
-    // }
-    // // @Override
-    // // delete obj with same id in table 
-    // // @param Accessory $accessory
-    // // @return boolean
-    // public boolean delete(Accessory accessory) {
-    //     return db.deleteTable("Accessory",((Accessory)accessory).getID());
-    // }
-    // // @Override
-    // // create a new table with same class
-    // // @param Accessory $accessory
-    // // @return arraylist
-    // public ArrayList<Object> findAll() {
-    //     return db.selectTable("Accessory");
-    // }
-    // @Override
-    // insert new obj to table 
-    // @param Accessory $accessory
-    // @return boolean
+    }
+
+    /**
+     * find and print object base on input name and id
+     * @param String $name
+     * @param int $id
+     * return void
+     */
+    public void find(String name,int id){
+        System.out.println("find by name");
+        try {
+            findByName(name).print();
+        } catch (NullPointerException e) {
+            System.err.println("no found");
+        }
+
+        System.out.println("find by id");
+        try {
+            findById(id).print();
+        } catch (NullPointerException e) {
+            System.err.println("no found");
+        } 
+    }
+
+    /**
+     * print table
+     * @param void
+     * @return void
+     */
+    public void print(){
+        for(Object o : db.selectTable("Accessory")){
+            ((Accessory)o).print();
+        }
+    }
+    /**
+     * insert new obj to table
+     * @param int $id 
+     * @return Accessory $accessory
+     */
     public Accessory findById(int id) {
         for (Object obj : db.selectTable("Accessory")) {
             if (((Accessory)obj).getID() == id) {
@@ -46,10 +52,12 @@ public class AccessoryDAO extends BaseDAO{
         }
         return null;
     }
-    // @Override
-    // insert new obj to table 
-    // @param String $name
-    // @return Accessory $accessory
+
+     /**
+     * insert new obj to table
+     * @param String $name
+     * @return Accessory $accessory
+     */
     public Accessory findByName(String name) {
         for (Object obj : db.selectTable("Accessory")) {
             if (((Accessory)obj).getName().equals(name)) {
@@ -58,4 +66,5 @@ public class AccessoryDAO extends BaseDAO{
         }
         return null; 
     }
+    
 }

@@ -5,9 +5,14 @@ public class Category extends BaseRow implements IEntity {
         super(ID, name);
     }   
     
-    public void run(){
-        System.out.println( ID + name );
+    /**
+     * print obj
+     * @param void
+     * @return void
+     */
+    public void print(){
         System.out.println("Category");
+        System.out.println( ID + "   " + name );
     }
 
 }

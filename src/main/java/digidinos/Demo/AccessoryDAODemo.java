@@ -5,7 +5,12 @@ import digidinos.entity.Accessory;
 
 public class AccessoryDAODemo {
     Database database;
-    // test Database insetTable method
+
+    /**
+     * test database insetTable method
+     * @param Accessory $accessory
+     * @return void
+     */
     public void insertTest(Accessory accessory){
         if (database.insertTable("Accessory",accessory)==1) {
             System.out.println("Insert Accessory Successful");
@@ -14,8 +19,12 @@ public class AccessoryDAODemo {
         }
     }
 
+    /**
+     * test database selectTable method
+     * @param void
+     * @return void
+     */
     public void selectTest(){
-        // test database selectTable method
         if(database.selectTable("Accessory").isEmpty()){
             System.out.println("No Accessory Data Found");
         } else {
@@ -23,8 +32,12 @@ public class AccessoryDAODemo {
         }
     }
 
+    /**
+     * test database updateTable method
+     * @param Accessory $accessory
+     * @return void
+     */
     public void updateTest(Accessory accessory){
-        // test database updateTable method
         if (database.updateTable("Accessory", accessory)==1) {
             System.out.println("Update Accessory Successful");
         } else {
@@ -32,8 +45,13 @@ public class AccessoryDAODemo {
         }
     }
 
+    /**
+     * test database updateTableById method
+     * @param int $id
+     * @param Accessory $accessory
+     * @return void
+     */
     public void updateTableByIdTest(int ID,Accessory accessory){
-        // test database updateTableById method
         if (database.updateTableById(ID, accessory)==1) {
             System.out.println("Update Accessory Table Successful");
         } else {
@@ -41,8 +59,12 @@ public class AccessoryDAODemo {
         }
     }
 
+    /**
+     * test database deleteTable method
+     * @param Accessory $accessory
+     * @return void
+     */
     public void deleteTest(Accessory accessory){
-        // test database deleteTable method
         if (database.deleteTable("Accessory", accessory)==true) {
             System.out.println("Delete Accessory Successful");
         } else {
@@ -50,8 +72,12 @@ public class AccessoryDAODemo {
         }
     }
 
+    /**
+     * test database truncateTable method
+     * @param void
+     * @return void
+     */
     public void truncateTest(){
-        // test database truncateTable method
         database.truncateTable("Accessory");
         if(database.selectTable("Accessory").isEmpty()){
             System.out.println("Truncate Accessory Successful");

@@ -3,11 +3,17 @@ public class Product extends BaseRow implements IEntity {
     private int categoryID;
 
     public Product(int ID, String name, int categoryID) {
-        super(ID, name);
+        super(ID,name);
         this.categoryID= categoryID;
     }
-    public void run(){
-        System.out.println( ID + name );
+
+    /**
+     * print obj
+     * @param void
+     * @return void
+     */
+    public void print(){
         System.out.println("Product");
+        System.out.println( ID + "   " + name+ "   " + categoryID );
     }
 }
