@@ -11,7 +11,7 @@ public class Category extends BaseRow implements IEntity {
      * @return void
      */
     public void print(){
-        System.out.println("Category");
+        System.out.print("Category:   ");
         System.out.println( ID + "   " + name );
     }
 

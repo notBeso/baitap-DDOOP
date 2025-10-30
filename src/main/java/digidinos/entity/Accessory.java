@@ -11,7 +11,7 @@ public class Accessory extends BaseRow implements IEntity {
      * @return void
      */
     public void print(){
-        System.out.println("Accessory");
+        System.out.print("Accessory:   ");
         System.out.println( ID+ "   " + name );
         
     }

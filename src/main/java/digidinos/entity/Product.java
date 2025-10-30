@@ -13,7 +13,7 @@ public class Product extends BaseRow implements IEntity {
      * @return void
      */
     public void print(){
-        System.out.println("Product");
+        System.out.print("Product:   ");
         System.out.println( ID + "   " + name+ "   " + categoryID );
     }
 }

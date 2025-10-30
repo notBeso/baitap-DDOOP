@@ -5,7 +5,7 @@ import java.io.File;
 import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
-
+import java.util.Locale;
 
 import digidinos.entity.Accessory;
 import digidinos.entity.Category;
@@ -82,9 +82,9 @@ public class Database{
     public Integer updateTable(String name, Object obj) {
         int result = 0;
         if(name.equals(Product.class.getSimpleName()) ){
-            for (int index = 0; index < database.productTable.size();index ++) {
-                if (database.productTable.get(index).getID() == ((Product)obj).getID()) {
-                    database.productTable.set(index,(Product)obj);  
+            for (int index = 0; index < productTable.size();index ++) {
+                if (productTable.get(index).getID() == ((Product)obj).getID()) {
+                    productTable.set(index,(Product)obj);  
                     result = 1;           
                     break;
                 }
@@ -92,17 +92,17 @@ public class Database{
         }
         if(name.equals(Category.class.getSimpleName())){
             for (int index = 0; index < database.categoryTable.size();index ++) {
-                if (database.categoryTable.get(index).getID() == ((Category)obj).getID()) {
-                    database.categoryTable.set(index,(Category)obj);  
+                if (categoryTable.get(index).getID() == ((Category)obj).getID()) {
+                    categoryTable.set(index,(Category)obj);  
                     result = 1;           
                     break;
                 }
             }          
         }
         if(name.equals(Accessory.class.getSimpleName())){
-            for (int index = 0; index < database.accessoryTable.size();index ++) {
-                if (database.accessoryTable.get(index).getID() == ((Accessory)obj).getID()) {
-                    database.accessoryTable.set(index,(Accessory)obj);  
+            for (int index = 0; index < accessoryTable.size();index ++) {
+                if (accessoryTable.get(index).getID() == ((Accessory)obj).getID()) {
+                    accessoryTable.set(index,(Accessory)obj);  
                     result = 1;           
                     break;
                 }
@@ -120,27 +120,27 @@ public class Database{
     public Integer updateTableById(int id, Object obj) {
         int result = 0;
         if (obj instanceof Product) {
-            for (int index = 0; index < database.productTable.size();index ++) {
-                if (database.productTable.get(index).getID() == id) {
-                    database.productTable.set(index,(Product)obj);  
+            for (int index = 0; index < productTable.size();index ++) {
+                if (productTable.get(index).getID() == id) {
+                    productTable.set(index,(Product)obj);  
                     result = 1;           
                     break;
                 }
             }
         } 
         if (obj instanceof Category) {
-            for (int index = 0; index < database.categoryTable.size();index ++) {
-                if (database.categoryTable.get(index).getID() == id) {
-                    database.categoryTable.set(index,(Category)obj);  
+            for (int index = 0; index < categoryTable.size();index ++) {
+                if (categoryTable.get(index).getID() == id) {
+                    categoryTable.set(index,(Category)obj);  
                     result = 1;           
                     break;
                 }
             }
         } 
         if (obj instanceof Accessory) {
-            for (int index = 0; index < database.accessoryTable.size();index ++) {
-                if (database.accessoryTable.get(index).getID() == id) {
-                    database.accessoryTable.set(index,(Accessory)obj);  
+            for (int index = 0; index < accessoryTable.size();index ++) {
+                if (accessoryTable.get(index).getID() == id) {
+                    accessoryTable.set(index,(Accessory)obj);  
                     result = 1;           
                     break;
                 }
@@ -158,25 +158,25 @@ public class Database{
     public Boolean deleteTable(String name, Object obj) {
         boolean result = false;
         if(name.equals(Product.class.getSimpleName()) ){
-            for (Product product : database.productTable) {
+            for (Product product : productTable) {
             if (product.getID() == ((Product)obj).getID()) {
-                database.productTable.remove(product);
+                productTable.remove(product);
                 result = true;
             }
         }          
         }
         if(name.equals(Category.class.getSimpleName())){
-            for (Category category : database.categoryTable) {
+            for (Category category : categoryTable) {
                 if (category.getID() == ((Category)obj).getID()) {
-                    database.categoryTable.remove(category);
+                    categoryTable.remove(category);
                     result = true;
                 }
             }         
         }
         if(name.equals(Accessory.class.getSimpleName())){
-            for (Accessory accessory : database.accessoryTable) {
+            for (Accessory accessory : accessoryTable) {
                 if (accessory.getID() == ((Accessory)obj).getID()) {
-                    database.accessoryTable.remove(accessory);
+                    accessoryTable.remove(accessory);
                     result = true;
                 }
             }           
@@ -191,13 +191,13 @@ public class Database{
      */
     public void truncateTable(String name) {
         if(name.equals(Product.class.getSimpleName())){
-            database.productTable.clear();
+            productTable.clear();
         }
         if(name.equals(Category.class.getSimpleName())){
-            database.categoryTable.clear();
+            categoryTable.clear();
         }
         if(name.equals(Accessory.class.getSimpleName())){
-            database.accessoryTable.clear();
+            accessoryTable.clear();
         }
     }
 
@@ -213,4 +213,20 @@ public class Database{
         return packageName.equals("digidinos.entity");
     }
 
+    /**
+     * print database
+     * @param void
+     * @return void 
+     */
+    public void print(){
+        for(Product product : productTable){
+            product.print();
+        }
+        for(Category category : categoryTable){
+            category.print();
+        }
+        for(Accessory accessory : accessoryTable){
+            accessory.print();
+        }
+    }
 }

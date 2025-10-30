@@ -5,10 +5,6 @@ import digidinos.DAO.Database;
 public class DatabaseDemo {
     Database database;
     
-     
-     
-     
-    
     /**
      * test if insertTable function work correctly
      * @param String $name, Object $obj 
