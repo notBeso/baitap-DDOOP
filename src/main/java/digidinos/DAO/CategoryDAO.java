@@ -38,6 +38,7 @@ public class CategoryDAO extends BaseDAO implements IDAO{
         for(Object o : db.selectTable("Category")){
             ((Category)o).print();
         }
+        System.out.println("END");
     }
     /**
      * insert new obj to table 

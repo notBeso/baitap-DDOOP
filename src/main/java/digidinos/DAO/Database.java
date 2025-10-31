@@ -80,35 +80,31 @@ public class Database{
      * @return int
      */
     public Integer updateTable(String name, Object obj) {
-        int result = 0;
-        if(name.equals(Product.class.getSimpleName()) ){
+        if(name.equals(Product.class.getSimpleName()) && obj instanceof Product){
             for (int index = 0; index < productTable.size();index ++) {
                 if (productTable.get(index).getID() == ((Product)obj).getID()) {
                     productTable.set(index,(Product)obj);  
-                    result = 1;           
-                    break;
+                    return 1;
                 }
             }         
         }
-        if(name.equals(Category.class.getSimpleName())){
+        if(name.equals(Category.class.getSimpleName())&& obj instanceof Category){
             for (int index = 0; index < database.categoryTable.size();index ++) {
                 if (categoryTable.get(index).getID() == ((Category)obj).getID()) {
                     categoryTable.set(index,(Category)obj);  
-                    result = 1;           
-                    break;
+                    return 1;
                 }
             }          
         }
-        if(name.equals(Accessory.class.getSimpleName())){
+        if(name.equals(Accessory.class.getSimpleName())&& obj instanceof Accessory){
             for (int index = 0; index < accessoryTable.size();index ++) {
                 if (accessoryTable.get(index).getID() == ((Accessory)obj).getID()) {
                     accessoryTable.set(index,(Accessory)obj);  
-                    result = 1;           
-                    break;
+                    return 1;
                 }
             }
         }
-        return result;
+        return 0;
     }
 
     /**
@@ -156,32 +152,31 @@ public class Database{
      * @return boolean
      */
     public Boolean deleteTable(String name, Object obj) {
-        boolean result = false;
-        if(name.equals(Product.class.getSimpleName()) ){
+        if(name.equals(Product.class.getSimpleName()) && obj instanceof Product){
             for (Product product : productTable) {
             if (product.getID() == ((Product)obj).getID()) {
                 productTable.remove(product);
-                result = true;
+                return true;
             }
         }          
         }
-        if(name.equals(Category.class.getSimpleName())){
+        if(name.equals(Category.class.getSimpleName())&& obj instanceof Category){
             for (Category category : categoryTable) {
                 if (category.getID() == ((Category)obj).getID()) {
                     categoryTable.remove(category);
-                    result = true;
+                    return true;
                 }
             }         
         }
-        if(name.equals(Accessory.class.getSimpleName())){
+        if(name.equals(Accessory.class.getSimpleName())&& obj instanceof Accessory){
             for (Accessory accessory : accessoryTable) {
                 if (accessory.getID() == ((Accessory)obj).getID()) {
                     accessoryTable.remove(accessory);
-                    result = true;
+                    return true;
                 }
             }           
         }
-        return result;
+        return false;
     }
 
     /**

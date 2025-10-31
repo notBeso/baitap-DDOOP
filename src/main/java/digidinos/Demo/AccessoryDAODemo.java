@@ -85,4 +85,10 @@ public class AccessoryDAODemo {
             System.out.println("Truncate Accessory Failed");
         }
     }
+
+    // public AccessoryDAODemo(Database db) {
+    //     super(db);
+    // }
+
+
 }

@@ -84,4 +84,9 @@ public class CategoryDAODemo {
             System.out.println("Truncate Category Failed");
         }
     }
+
+    // public CategoryDAODemo(Database db) {
+    //     super(db);
+    // }
+
 }

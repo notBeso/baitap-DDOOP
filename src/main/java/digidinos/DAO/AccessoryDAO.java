@@ -38,6 +38,7 @@ public class AccessoryDAO extends BaseDAO implements IDAO{
         for(Object o : db.selectTable("Accessory")){
             ((Accessory)o).print();
         }
+        System.out.println("END");
     }
     /**
      * insert new obj to table

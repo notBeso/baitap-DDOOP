@@ -84,4 +84,8 @@ public class ProductDAODemo {
             System.out.println("Truncate Product Failed");
         }
     }
+
+    // public ProductDAODemo(Database db) {
+    //     super(db);
+    // }
 }

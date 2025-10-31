@@ -4,7 +4,9 @@ import digidinos.DAO.Database;
 
 public class DatabaseDemo {
     Database database;
-    
+    public DatabaseDemo(Database db){
+        this.database =db;
+    }
     /**
      * test if insertTable function work correctly
      * @param String $name, Object $obj 

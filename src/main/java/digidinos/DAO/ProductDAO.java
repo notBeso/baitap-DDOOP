@@ -37,6 +37,7 @@ public class ProductDAO extends BaseDAO implements IDAO{
         for(Object o : db.selectTable("Product")){
             ((Product)o).print();
         }
+        System.out.println("END");
     }
     /**
      * insert new obj to table 
